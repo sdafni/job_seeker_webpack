@@ -33,7 +33,7 @@ function AddJob(props) {
 
     return (
         <>
-            <Button onClick={onOpen}>Add job</Button>
+            <Button  bg="blue.200"  onClick={onOpen}>Add job</Button>
 
             <Modal
                 initialFocusRef={initialRef}
@@ -74,8 +74,8 @@ function AddJob(props) {
                                     <Field name='jobTitle' validate={validateName}>
                                         {({ field, form }) => (
                                             <FormControl isInvalid={form.errors.name && form.touched.name}>
-                                                <FormLabel>First name</FormLabel>
-                                                <Input {...field} placeholder='name' />
+                                                <FormLabel>Job Title</FormLabel>
+                                                <Input {...field} placeholder='Job Title' />
                                                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
                                             </FormControl>
                                         )}
@@ -84,7 +84,7 @@ function AddJob(props) {
 
                                     <Button
                                         mt={4}
-                                        colorScheme='teal'
+                                        colorScheme='blue'
                                         isLoading={props.isSubmitting}
                                         type='submit'
                                         onClick={onClose}

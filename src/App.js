@@ -27,6 +27,7 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from "@firebase/firestore";
 import AddJob from './components/AddJob';
 import DeleteJobDialog from './components/DeleteJobDialog'
+import EditJobDialog from './components/EditJob'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBZAyI_ON7F4VEZ_9k1ETzF4_k6qcBJ1uo",
@@ -40,9 +41,6 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-
-
 const jobsCollectionRef = collection(db, "jobs");
 
 
@@ -56,56 +54,43 @@ function App() {
       const jobsFromServer = await fetchJobs()
       setJobs(jobsFromServer)
     }
-
     getJobs()
   }, [])
 
-  // Fetch Jobs
   const fetchJobs = async () => {
     const JobsColSnapshot = await getDocs(jobsCollectionRef);
     const jobsList = JobsColSnapshot.docs.map(doc => doc.data());
     return jobsList;
   }
 
-  // Fetch Job
-  const fetchJob = async (id) => {
-    const data = doc(db, "jobs", id);
-    return data
-  }
-
-  // Add Job
   const addJob = async (job) => {
     const id = String(Math.floor(Math.random() * 10000) + 1);
     const newJob = { id, ...job }
     await setDoc(doc(db, "jobs", newJob.id), newJob);
-
-    const data = await fetchJobs()
-    const jobsFromServer = await fetchJobs()
-    setJobs(jobsFromServer)
+    setJobs([...jobs, newJob])
   }
 
-  // Delete Job
   const deleteJob = async (id) => {
-
     const jobDoc = doc(db, "jobs", id);
     await deleteDoc(jobDoc);
     setJobs(jobs.filter((job) => job.id !== id))
   }
 
+  const updateJob = async (modifiedJob) => {
+    const jobDoc = doc(db, "jobs", modifiedJob.id);
+    await updateDoc(jobDoc, modifiedJob);
+    setJobs(jobs.map(j => modifiedJob.id === j.id ? Object.assign(j, modifiedJob) : j))
+  }
 
 
-  // 2. Wrap ChakraProvider at the root of your app
   return (
     <ChakraProvider>
-
-
       <Container
         p="2"
         bg="gray.200"
         maxH="100%"
         maxW="100%"
       >
-
         <Grid
           templateAreas={`"header header"
                           "nav main"
@@ -126,52 +111,36 @@ function App() {
           </GridItem>
 
           <GridItem p='2' bg='white' area={'main'} borderRadius="md">
-
-            <AddJob colorScheme='blue' addJob={addJob} > AddJob </AddJob>
-
+            <AddJob  addJob={addJob} > AddJob </AddJob>
             <TableContainer >
-              <Table variant='simple' colorScheme="linkedin">
+              <Table variant='simple' >
                 <TableCaption>Pendig jobs</TableCaption>
                 <Thead>
                   <Tr>
                     <Th>Company</Th>
                     <Th>title</Th>
                     <Th>actions</Th>
+                    <Th></Th>
                   </Tr>
                 </Thead>
                 <Tbody>
 
                   {jobs.map((job, index) => (
-                    // <Job key={index} job={job} onDelete={onDelete} onToggle={onToggle} />
-
-                    <Tr borderRadius="md" bg="blue.100">
+                    <Tr borderRadius="md" bg="orange.50">
                       <Td>{job.companyName}</Td>
                       <Td>{job.jobTitle}</Td>
-                        <Td>
-                           <DeleteJobDialog onDeleteJob={deleteJob} job={job}>Delete job dialog</DeleteJobDialog>
-                        </Td>
+                      <Td>
+                        <Flex>
+                          <DeleteJobDialog onDeleteJob={deleteJob} job={job}>Delete job dialog</DeleteJobDialog>
+                          <EditJobDialog onEditJob={values => updateJob({...values, id: job.id})} job={job}>Edit job modal</EditJobDialog>
+                        </Flex>
+                      </Td>
                     </Tr>
                   ))}
 
                 </Tbody>
-
               </Table>
             </TableContainer>
-            {
-            /* <VStack w='600px' h='300' spacing='10px' align='left'>
-
-              <Box w='600px' h='100px' borderRadius="md" borderColor="blue.300" boxShadow='dark-lg'>
-                <Flex w='600px' h='100' spacing='10px'  align="center" justify="center">
-
-                 <Text h ="90px" w="50%" ontSize='1xl' border="1px" borderColor="blue.300" >company</ Text>
-                 <Text h ="90px" ontSize='1xl' border="1px" borderColor="blue.300" >title</Text>
-
-                </Flex>
-
-              </Box>
-
-
-            </VStack> */}
           </GridItem>
           <GridItem pl='2' bg='white' area={'footer'} borderRadius="md">
             Footer
