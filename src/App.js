@@ -1,4 +1,4 @@
-import { ChakraProvider, Box, SimpleGrid, HStack, VStack, GridItem, Grid, Container, Heading, Text, Flex, Button } from '@chakra-ui/react'
+import { ChakraProvider, Box, SimpleGrid, HStack, VStack, GridItem, Grid, Container, Heading, Text, Flex, Button, Stack } from '@chakra-ui/react'
 import {
   Table,
   Thead,
@@ -110,10 +110,36 @@ function App() {
             Nav placeholder
           </GridItem>
 
-          <GridItem p='2' bg='white' area={'main'} borderRadius="md">
+          <GridItem  p='2' bg='white' area={'main'} borderRadius="md">
             <AddJob  addJob={addJob} > AddJob </AddJob>
-            <TableContainer >
-              <Table variant='simple' >
+            
+          <VStack align="left" >
+            {jobs.map((job, index) => (
+
+                <HStack 
+                height="80px"
+                padding="10px 10px "
+                spacing={6}
+                align="left"
+                borderRadius="md"
+                bg="cyan.100"
+                justify="left"
+                maxWidth="900px"
+                >
+                            <Box padding="20px 10px " borderRight="1px" width="300px">{job.companyName}</Box>
+                            <Box padding="20px 10px " borderRight="1px" width="300px">{job.jobTitle}</Box>
+                            <Box padding="10px 10px " >
+                              <Flex >
+                                <DeleteJobDialog onDeleteJob={deleteJob} job={job}>Delete job dialog</DeleteJobDialog>
+                                <EditJobDialog onEditJob={values => updateJob({...values, id: job.id})} job={job}>Edit job modal</EditJobDialog>
+                              </Flex>
+                            </Box>
+                    </HStack>
+                        ))}
+
+          </VStack>
+            {/* <TableContainer >
+              <Table variant='simple'  colorScheme="whiteAlpha"  style={{ borderCollapse: 'separate' }}>
                 <TableCaption>Pendig jobs</TableCaption>
                 <Thead>
                   <Tr>
@@ -124,9 +150,9 @@ function App() {
                   </Tr>
                 </Thead>
                 <Tbody>
-
+           
                   {jobs.map((job, index) => (
-                    <Tr borderRadius="md" bg="orange.50">
+                    <Tr  m="22px" borderRadius="md"  border='1px' borderColor='gray.800' style={{ borderCollapse: 'separate' }}>
                       <Td>{job.companyName}</Td>
                       <Td>{job.jobTitle}</Td>
                       <Td>
@@ -140,7 +166,8 @@ function App() {
 
                 </Tbody>
               </Table>
-            </TableContainer>
+            </TableContainer> */}
+
           </GridItem>
           <GridItem pl='2' bg='white' area={'footer'} borderRadius="md">
             Footer

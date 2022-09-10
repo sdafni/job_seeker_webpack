@@ -6,8 +6,11 @@ import {
     AlertDialogContent,
     AlertDialogOverlay,
     Button,
-    useDisclosure
+    useDisclosure,
+    
   } from '@chakra-ui/react'
+
+import {DeleteIcon} from '@chakra-ui/icons'
 
   import { useRef } from 'react'
 
@@ -23,8 +26,8 @@ function DeleteJobDialog(props) {
 
     return (
       <>
-        <Button colorScheme='red' onClick={onOpen}>
-          Delete Job
+        <Button leftIcon={<DeleteIcon/>}   marginRight="10px" colorScheme='red' onClick={onOpen}>
+          
         </Button>
   
         <AlertDialog
@@ -46,8 +49,6 @@ function DeleteJobDialog(props) {
                 <Button ref={cancelRef} onClick={onClose}>
                   Cancel
                 </Button>
-                {/* props.onDeleteJob(props.job.id) */}
-
                 <Button colorScheme='red' onClick={event => DialogDeleteJob(event, props.job.id)} ml={3}>
                   Delete
                 </Button>

@@ -14,6 +14,9 @@ import {
     Input
 } from '@chakra-ui/react'
 
+import {EditIcon} from '@chakra-ui/icons'
+
+
 import { useRef } from 'react'
 import { Formik, Field, Form } from 'formik';
 
@@ -33,7 +36,7 @@ function EditJobDialog(props) {
 
     return (
         <>
-            <Button  bg="blue.200"  onClick={onOpen}>Edit job</Button>
+            <Button leftIcon={<EditIcon/>} bg="blue.200"  onClick={onOpen}></Button>
 
             <Modal
                 initialFocusRef={initialRef}
