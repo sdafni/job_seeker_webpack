@@ -2,7 +2,7 @@
   "name": "job_seeker",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gitname.github.io/jobseeker",
+  "homepage": "https://gitname.github.io/job_seeker",
   "dependencies": {
     "@chakra-ui/react": "^2.3.1",
     "@emotion/react": "^11.10.4",
