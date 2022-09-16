@@ -1,8 +1,8 @@
 {
-  "name": "job_seeker",
+  "name": "job_seeker_webpack",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gitname.github.io/job_seeker",
+  "homepage": "https://gitname.github.io/job_seeker_webpack",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.9",
     "@chakra-ui/react": "^2.3.1",
