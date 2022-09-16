@@ -1,3 +1,4 @@
+
 import { ChakraProvider, Box, SimpleGrid, HStack, VStack, GridItem, Grid, Container, Heading, Text, Flex, Button, Stack } from '@chakra-ui/react'
 import {
   Table,
@@ -13,6 +14,14 @@ import {
 
 import { useState, useEffect } from 'react'
 
+import AddJob from './components/AddJob';
+import DeleteJobDialog from './components/DeleteJobDialog';
+import EditJobDialog from './components/EditJob';
+
+
+
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from "@firebase/firestore";
 import {
   collection,
   getDocs,
@@ -23,11 +32,6 @@ import {
   setDoc
 } from "firebase/firestore";// Follow this pattern to import other Firebase services
 
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from "@firebase/firestore";
-import AddJob from './components/AddJob';
-import DeleteJobDialog from './components/DeleteJobDialog'
-import EditJobDialog from './components/EditJob'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBZAyI_ON7F4VEZ_9k1ETzF4_k6qcBJ1uo",
@@ -45,7 +49,11 @@ const jobsCollectionRef = collection(db, "jobs");
 
 
 
-function App() {
+
+
+
+
+function App(props) {
 
   const [jobs, setJobs] = useState([])
 
@@ -56,6 +64,7 @@ function App() {
     }
     getJobs()
   }, [])
+
 
   const fetchJobs = async () => {
     const JobsColSnapshot = await getDocs(jobsCollectionRef);
@@ -82,7 +91,32 @@ function App() {
     setJobs(jobs.map(j => modifiedJob.id === j.id ? Object.assign(j, modifiedJob) : j))
   }
 
+  if (props.content_view) {
 
+      let box_pos = {
+          border: "1px",
+          height: "90px",
+          width: "250px",
+          position: "fixed",
+          bottom: "0",
+          right: "0",
+          marginLeft: "100px",
+          marginRight: "3px",
+          marginBottom: "17px"
+      }  
+    
+      return (
+          <ChakraProvider >
+                  <Box 
+                      {...box_pos}
+                  
+                  > Job Seeker add job
+                      <AddJob  addJob={addJob} > Add Job </AddJob>
+                  </Box>
+          </ChakraProvider>
+      )
+    
+  } else {
   return (
     <ChakraProvider>
       <Container
@@ -91,6 +125,7 @@ function App() {
         maxH="100%"
         maxW="100%"
       >
+
         <Grid
           templateAreas={`"header header"
                           "nav main"
@@ -173,10 +208,17 @@ function App() {
             Footer
           </GridItem>
         </Grid>
+
+
+
       </Container>
 
     </ChakraProvider>
   )
+          }
+
 }
 
-export default App;
+
+
+export  default App;

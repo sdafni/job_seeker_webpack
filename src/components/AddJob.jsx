@@ -34,7 +34,7 @@ function AddJob(props) {
     return (
         <>
             <Button m="10px" bg="blue.200"  onClick={onOpen}>Add job</Button>
-
+            
             <Modal
                 initialFocusRef={initialRef}
                 isOpen={isOpen}
