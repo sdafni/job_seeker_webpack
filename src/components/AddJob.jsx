@@ -16,13 +16,14 @@ import {
 
 import { useRef } from 'react'
 import { Formik, Field, Form } from 'formik';
+import AddNewJobForm from './AddNewJobForm';
 
 function AddJob(props) {
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: props.content_view })
 
     const initialRef = useRef(null)
 
-
+    // TODO review validate
     function validateName(value) {
         let error
         if (!value) {
@@ -33,8 +34,8 @@ function AddJob(props) {
 
     return (
         <>
-            <Button m="10px" bg="blue.200"  onClick={onOpen}>Add job</Button>
-            
+            <Button m="10px" bg="blue.200" onClick={onOpen}>Add job</Button>
+
             <Modal
                 initialFocusRef={initialRef}
                 isOpen={isOpen}
@@ -58,41 +59,8 @@ function AddJob(props) {
 
                             }}
                         >
-                            {(props) => (
-                                <Form>
-                                    <Field name='companyName' validate={validateName}>
-                                        {({ field, form }) => (
-                                            <FormControl isInvalid={form.errors.name && form.touched.name}>
-                                                <FormLabel>Company name</FormLabel>
-                                                <Input {...field} placeholder='Company name' />
-                                                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                                            </FormControl>
-                                        )}
-                                    </Field>
+                            <AddNewJobForm onClose={onClose}></AddNewJobForm>
 
-
-                                    <Field name='jobTitle' validate={validateName}>
-                                        {({ field, form }) => (
-                                            <FormControl isInvalid={form.errors.name && form.touched.name}>
-                                                <FormLabel>Job Title</FormLabel>
-                                                <Input {...field} placeholder='Job Title' />
-                                                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-                                            </FormControl>
-                                        )}
-                                    </Field>
-
-
-                                    <Button
-                                        mt={4}
-                                        colorScheme='blue'
-                                        isLoading={props.isSubmitting}
-                                        type='submit'
-                                        onClick={onClose}
-                                    >
-                                        Submit
-                                    </Button>
-                                </Form>
-                            )}
                         </Formik>
                     </ModalBody>
                 </ModalContent>

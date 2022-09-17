@@ -48,11 +48,6 @@ const db = getFirestore(app);
 const jobsCollectionRef = collection(db, "jobs");
 
 
-
-
-
-
-
 function App(props) {
 
   const [jobs, setJobs] = useState([])
@@ -93,132 +88,104 @@ function App(props) {
 
   if (props.content_view) {
 
-      let box_pos = {
-          border: "1px",
-          height: "90px",
-          width: "250px",
-          position: "fixed",
-          bottom: "0",
-          right: "0",
-          marginLeft: "100px",
-          marginRight: "3px",
-          marginBottom: "17px"
-      }  
-    
-      return (
-          <ChakraProvider >
-                  <Box 
-                      {...box_pos}
-                  
-                  > Job Seeker add job
-                      <AddJob  addJob={addJob} > Add Job </AddJob>
-                  </Box>
-          </ChakraProvider>
-      )
-    
-  } else {
-  return (
-    <ChakraProvider>
-      <Container
-        p="2"
-        bg="gray.200"
-        maxH="100%"
-        maxW="100%"
-      >
+    let box_pos = {
+      border: "0px",
+      height: "600px",
+      width: "600",
+      position: "fixed",
+      borderRadius: "3px",
+      margin: "30px",
+      bg: "gray.200", 
+      textAlign: "center"
+    }
 
-        <Grid
-          templateAreas={`"header header"
-                          "nav main"
-                          "nav footer"`}
-          gridTemplateRows={'60px 1fr 100px'}
-          gridTemplateColumns={'100px 1fr'}
-          gap='1.5'
-          color='blackAlpha.700'
-          fontWeight='bold'
-          height="900px"
+    return (
+      <ChakraProvider >
+          <AddJob addJob={addJob} content_view={true}> Add Job </AddJob>
+
+        {/* <Box
+          {...box_pos}
+
+        > Job Seeker add job
+          <AddJob addJob={addJob} content_view={true}> Add Job </AddJob>
+        </Box>  */}
+      </ChakraProvider>
+    )
+
+  } else {
+    return (
+      <ChakraProvider>
+        <Container
+          p="2"
+          bg="gray.200"
+          maxH="100%"
           maxW="100%"
         >
-          <GridItem pl='2' bg='white' area={'header'} borderRadius="md">
-            <Heading textAlign="center" fontSize="ld"> Jobs Dashboard </Heading>
-          </GridItem>
-          <GridItem pl='2' bg='white' area={'nav'} borderRadius="md">
-            Nav placeholder
-          </GridItem>
 
-          <GridItem  p='2' bg='white' area={'main'} borderRadius="md">
-            <AddJob  addJob={addJob} > AddJob </AddJob>
-            
-          <VStack align="left" >
-            {jobs.map((job, index) => (
+          <Grid
+            templateAreas={`"header header"
+                          "nav main"
+                          "nav footer"`}
+            gridTemplateRows={'60px 1fr 100px'}
+            gridTemplateColumns={'100px 1fr'}
+            gap='1.5'
+            color='blackAlpha.700'
+            fontWeight='bold'
+            height="900px"
+            maxW="100%"
+          >
+            <GridItem pl='2' bg='white' area={'header'} borderRadius="md">
+              <Heading textAlign="center" fontSize="ld"> Jobs Dashboard </Heading>
+            </GridItem>
+            <GridItem pl='2' bg='white' area={'nav'} borderRadius="md">
+              Nav placeholder
+            </GridItem>
 
-                <HStack 
-                height="80px"
-                padding="10px 10px "
-                spacing={6}
-                align="left"
-                borderRadius="md"
-                bg="cyan.100"
-                justify="left"
-                maxWidth="900px"
-                >
-                            <Box padding="20px 10px " borderRight="1px" width="300px">{job.companyName}</Box>
-                            <Box padding="20px 10px " borderRight="1px" width="300px">{job.jobTitle}</Box>
-                            <Box padding="10px 10px " >
-                              <Flex >
-                                <DeleteJobDialog onDeleteJob={deleteJob} job={job}>Delete job dialog</DeleteJobDialog>
-                                <EditJobDialog onEditJob={values => updateJob({...values, id: job.id})} job={job}>Edit job modal</EditJobDialog>
-                              </Flex>
-                            </Box>
-                    </HStack>
-                        ))}
+            <GridItem p='2' bg='white' area={'main'} borderRadius="md">
+              <AddJob addJob={addJob} > AddJob </AddJob>
 
-          </VStack>
-            {/* <TableContainer >
-              <Table variant='simple'  colorScheme="whiteAlpha"  style={{ borderCollapse: 'separate' }}>
-                <TableCaption>Pendig jobs</TableCaption>
-                <Thead>
-                  <Tr>
-                    <Th>Company</Th>
-                    <Th>title</Th>
-                    <Th>actions</Th>
-                    <Th></Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-           
-                  {jobs.map((job, index) => (
-                    <Tr  m="22px" borderRadius="md"  border='1px' borderColor='gray.800' style={{ borderCollapse: 'separate' }}>
-                      <Td>{job.companyName}</Td>
-                      <Td>{job.jobTitle}</Td>
-                      <Td>
-                        <Flex>
-                          <DeleteJobDialog onDeleteJob={deleteJob} job={job}>Delete job dialog</DeleteJobDialog>
-                          <EditJobDialog onEditJob={values => updateJob({...values, id: job.id})} job={job}>Edit job modal</EditJobDialog>
-                        </Flex>
-                      </Td>
-                    </Tr>
-                  ))}
+              <VStack align="left" >
+                {jobs.map((job, index) => (
 
-                </Tbody>
-              </Table>
-            </TableContainer> */}
+                  <HStack
+                    height="80px"
+                    padding="10px 10px "
+                    spacing={6}
+                    align="left"
+                    borderRadius="md"
+                    bg="cyan.100"
+                    justify="left"
+                    maxWidth="900px"
+                  >
+                    <Box padding="20px 10px " borderRight="1px" width="300px">{job.companyName}</Box>
+                    <Box padding="20px 10px " borderRight="1px" width="300px">{job.jobTitle}</Box>
+                    <Box padding="10px 10px " >
+                      <Flex >
+                        <DeleteJobDialog onDeleteJob={deleteJob} job={job}>Delete job dialog</DeleteJobDialog>
+                        <EditJobDialog onEditJob={values => updateJob({ ...values, id: job.id })} job={job}>Edit job modal</EditJobDialog>
+                      </Flex>
+                    </Box>
+                  </HStack>
+                ))}
 
-          </GridItem>
-          <GridItem pl='2' bg='white' area={'footer'} borderRadius="md">
-            Footer
-          </GridItem>
-        </Grid>
+              </VStack>
+
+            </GridItem>
+            <GridItem pl='2' bg='white' area={'footer'} borderRadius="md">
+              Footer
+            </GridItem>
+          </Grid>
 
 
 
-      </Container>
+        </Container>
 
-    </ChakraProvider>
-  )
-          }
+      </ChakraProvider>
+    )
+  }
 
 }
 
 
 
-export  default App;
+export default App;

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+
+
+
+    <style>
+
+    body {
+        background-color: blueviolet;
+    }
+    #yuvDiv {
+        height: 110px;
+        width: 250px;
+        position: fixed;
+        bottom: 10;
+        right: 0;
+
+        margin-left: 100px;
+        margin-right: 10px;
+        margin-bottom: 17px;
+
+        border: solid ;
+        border-width: 2px;
+        background-color: rgb(184, 213, 226);
+        float: right;
+        z-index: 9999999999999;
+        }
+
+     #yuvForm, #JobseekButton ,#companyName , #jobTitle {
+            position: relative;
+            margin: 2px;
+            padding: 1px 4px;
+            border-width: 1px;
+        }
+
+
+      #JobseekButton ,#companyName , #jobTitle {
+            background-color: white;
+        }
+
+      #content {
+        height: 60px;
+        width: 80px;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+
+        margin-left: 100px;
+        margin-right: 10px;
+        margin-bottom: 17px;
+        border-radius: 3px;
+        border-width: 0px;
+
+        background-color: rgb(29, 214, 13);
+        float: right;
+        z-index: 9999999999999;
+      }
+
+    </style>
+
+    <body>
+        <div id="yuvDiv" >
+
+
+
+            <form id="yuvForm" class="yuv-form">
+                <input class="yuv-inputs" id="companyName" name="companyName" type="text">
+                <input class="yuv-inputs" id="jobTitle" name="jobTitle"type="text">
+                <button class="yuv-inputs" id="JobseekButton" type="submit">Submit</button>
+            </form> 
+            
+        </div>
+        <script src="Li-content-script.js">
+
+        </script>
+    </body>
+
+</html>
