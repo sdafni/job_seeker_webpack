@@ -1,16 +1,5 @@
 
 import { ChakraProvider, Box, SimpleGrid, HStack, VStack, GridItem, Grid, Container, Heading, Text, Flex, Button, Stack } from '@chakra-ui/react'
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
-} from '@chakra-ui/react'
 
 import { useState, useEffect } from 'react'
 
@@ -25,7 +14,6 @@ import { getFirestore } from "@firebase/firestore";
 import {
   collection,
   getDocs,
-  addDoc,
   updateDoc,
   deleteDoc,
   doc,
@@ -47,7 +35,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const jobsCollectionRef = collection(db, "jobs");
 
-
+// TODO db dups, as in bg script
 function App(props) {
 
   const [jobs, setJobs] = useState([])
@@ -98,7 +86,7 @@ function App(props) {
       bg: "gray.200", 
       textAlign: "center"
     }
-
+    
     return (
       <ChakraProvider >
           <AddJob addJob={addJob} content_view={true}> Add Job </AddJob>

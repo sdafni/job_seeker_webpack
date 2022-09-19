@@ -9,10 +9,15 @@ import {
     Input
 } from '@chakra-ui/react'
 
+//TODO use in edit
+//TODO aut
+// 
 function AddNewJobForm(props) {
 return (
     // TODO re-add validate
     <Form>
+
+
         <Field name='companyName' >
             {({ field, form }) => (
                 <FormControl isInvalid={form.errors.name && form.touched.name}>
