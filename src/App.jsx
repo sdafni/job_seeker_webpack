@@ -1,5 +1,10 @@
 
-import { ChakraProvider, Box, SimpleGrid, HStack, VStack, GridItem, Grid, Container, Heading, Text, Flex, Button, Stack } from '@chakra-ui/react'
+import {
+  ChakraProvider,
+  extendTheme,
+  withDefaultColorScheme,
+  Box, SimpleGrid, HStack, VStack, GridItem, Grid, Container, Heading, Text, Flex, Button, Stack
+} from '@chakra-ui/react'
 
 import { useState, useEffect } from 'react'
 
@@ -74,104 +79,97 @@ function App(props) {
     setJobs(jobs.map(j => modifiedJob.id === j.id ? Object.assign(j, modifiedJob) : j))
   }
 
-  if (props.content_view) {
-
-    let box_pos = {
-      border: "0px",
-      height: "600px",
-      width: "600",
-      position: "fixed",
-      borderRadius: "3px",
-      margin: "30px",
-      bg: "gray.200", 
-      textAlign: "center"
-    }
-    
-    return (
-      <ChakraProvider >
-          <AddJob addJob={addJob} content_view={true}> Add Job </AddJob>
-
-        {/* <Box
-          {...box_pos}
-
-        > Job Seeker add job
-          <AddJob addJob={addJob} content_view={true}> Add Job </AddJob>
-        </Box>  */}
-      </ChakraProvider>
+  // 2. Extend the theme with new layer styles
+  const theme = extendTheme(
+    {
+      //https://chakra-ui.com/docs/styled-system/customize-theme
+      components: {
+        Button: {
+          // 3. We can add a new visual variant
+          variants: {
+            'negative': {
+              bg: 'red.200',
+            },
+            'positive': {
+              bg: 'blue.200',
+            },
+          },
+        },
+      },
+      layerStyles: {
+        base: {
+          bg: 'gray.50',
+          //border: '1px solid',
+          borderColor: 'gray.400',
+          borderRadius: "md",
+          padding: "20px 5px ",
+        },
+        card_section: {
+          padding: "20px 5px",
+          borderRight: "1px",
+          borderColor: 'blue.400',
+          width: "300px",
+        }
+      },
+    },
     )
 
-  } else {
-    return (
-      <ChakraProvider>
-        <Container
-          p="2"
-          bg="gray.200"
-          maxH="100%"
-          maxW="100%"
+
+
+  return (
+    <ChakraProvider theme={theme}>
+      <Container
+        layerStyle={'base'}
+        marginLeft="10px"
+        maxH="100%"
+        maxW="100%"
+
+      >
+        <Grid
+          layerStyle={'base'}
+          maxW="700px"
         >
-
-          <Grid
-            templateAreas={`"header header"
-                          "nav main"
-                          "nav footer"`}
-            gridTemplateRows={'60px 1fr 100px'}
-            gridTemplateColumns={'100px 1fr'}
-            gap='1.5'
-            color='blackAlpha.700'
-            fontWeight='bold'
-            height="900px"
-            maxW="100%"
+          <GridItem
+            layerStyle={'base'}
           >
-            <GridItem pl='2' bg='white' area={'header'} borderRadius="md">
-              <Heading textAlign="center" fontSize="ld"> Jobs Dashboard </Heading>
-            </GridItem>
-            <GridItem pl='2' bg='white' area={'nav'} borderRadius="md">
-              Nav placeholder
-            </GridItem>
+            <VStack
+              layerStyle={'base'}
+              align="left"
+              spacing="20px"
+            >
+              <Box >
+                <AddJob addJob={addJob} > </AddJob>
+              </Box>
 
-            <GridItem p='2' bg='white' area={'main'} borderRadius="md">
-              <AddJob addJob={addJob} > AddJob </AddJob>
+              {jobs.map((job, index) => (
 
-              <VStack align="left" >
-                {jobs.map((job, index) => (
+                <HStack
+                  layerStyle={'base'}
+                  height="80px"
+                  padding="10x 10px"
+                  align="left"
+                  justify="left"
+                  bg="gray.200"
+                  boxShadow='lg'
+                >
+                  <Box layerStyle={'card_section'} width="200px">{job.companyName}</Box>
+                  <Box layerStyle={'card_section'} >{job.jobTitle}</Box>
+                  <Box layerStyle={'card_section'} width="150px" >
+                    <Flex gap="4px">
+                      <DeleteJobDialog onDeleteJob={deleteJob} job={job}>Delete job dialog</DeleteJobDialog>
+                      <EditJobDialog onEditJob={values => updateJob({ ...values, id: job.id })} job={job}>Edit job modal</EditJobDialog>
+                    </Flex>
+                  </Box>
+                </HStack>
+              ))}
 
-                  <HStack
-                    height="80px"
-                    padding="10px 10px "
-                    spacing={6}
-                    align="left"
-                    borderRadius="md"
-                    bg="cyan.100"
-                    justify="left"
-                    maxWidth="900px"
-                  >
-                    <Box padding="20px 10px " borderRight="1px" width="300px">{job.companyName}</Box>
-                    <Box padding="20px 10px " borderRight="1px" width="300px">{job.jobTitle}</Box>
-                    <Box padding="10px 10px " >
-                      <Flex >
-                        <DeleteJobDialog onDeleteJob={deleteJob} job={job}>Delete job dialog</DeleteJobDialog>
-                        <EditJobDialog onEditJob={values => updateJob({ ...values, id: job.id })} job={job}>Edit job modal</EditJobDialog>
-                      </Flex>
-                    </Box>
-                  </HStack>
-                ))}
+            </VStack>
 
-              </VStack>
-
-            </GridItem>
-            <GridItem pl='2' bg='white' area={'footer'} borderRadius="md">
-              Footer
-            </GridItem>
-          </Grid>
-
-
-
-        </Container>
-
-      </ChakraProvider>
-    )
-  }
-
+          </GridItem>
+        </Grid>
+      </Container>
+    </ChakraProvider>
+  )
 }
 
 

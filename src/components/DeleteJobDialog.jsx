@@ -26,10 +26,10 @@ function DeleteJobDialog(props) {
 
     return (
       <>
-        <Button leftIcon={<DeleteIcon/>}   marginRight="10px" colorScheme='red' onClick={onOpen}>
-          
-        </Button>
-  
+        <Button leftIcon={<DeleteIcon/>}
+                variant={"negative"}
+                onClick={onOpen}></Button>
+
         <AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
@@ -46,11 +46,15 @@ function DeleteJobDialog(props) {
               </AlertDialogBody>
   
               <AlertDialogFooter>
-                <Button ref={cancelRef} onClick={onClose}>
+                <Button ref={cancelRef}
+                  variant={"negative"}
+                  onClick={onClose}>
                   Cancel
                 </Button>
-                <Button colorScheme='red' onClick={event => DialogDeleteJob(event, props.job.id)} ml={3}>
-                  Delete
+                <Button 
+                  variant={"positive"}
+                  onClick={event => DialogDeleteJob(event, props.job.id)} ml={3}
+                    >Delete
                 </Button>
               </AlertDialogFooter>
             </AlertDialogContent>

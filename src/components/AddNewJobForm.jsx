@@ -40,11 +40,11 @@ return (
         </Field>
 
         <Button
-            mt={4}
-            colorScheme='blue'
+            marginTop={4}
             isLoading={props.isSubmitting}
             type='submit'
             onClick={props.onClose}
+            variant={"positive"}
         >
             Submit
         </Button>

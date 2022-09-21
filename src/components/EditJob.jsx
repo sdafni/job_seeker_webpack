@@ -36,8 +36,9 @@ function EditJobDialog(props) {
 
     return (
         <>
-            <Button leftIcon={<EditIcon/>} bg="blue.200"  onClick={onOpen}></Button>
-
+            <Button leftIcon={<EditIcon/>}
+                    variant={"positive"}
+                    onClick={onOpen}></Button>
             <Modal
                 initialFocusRef={initialRef}
                 isOpen={isOpen}
@@ -87,7 +88,7 @@ function EditJobDialog(props) {
 
                                     <Button
                                         mt={4}
-                                        colorScheme='blue'
+                                        variant={"positive"}
                                         isLoading={props.isSubmitting}
                                         type='submit'
                                         onClick={onClose}
