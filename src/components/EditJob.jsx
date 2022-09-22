@@ -36,9 +36,11 @@ function EditJobDialog(props) {
 
     return (
         <>
-            <Button leftIcon={<EditIcon/>}
-                    variant={"positive"}
-                    onClick={onOpen}></Button>
+       <Button  pr="0px"
+                pl="7px"
+                leftIcon={<EditIcon/>}
+                variant={"positive"}
+                onClick={onOpen}></Button>
             <Modal
                 initialFocusRef={initialRef}
                 isOpen={isOpen}

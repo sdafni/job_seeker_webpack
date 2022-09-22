@@ -105,7 +105,7 @@ function App(props) {
           padding: "20px 5px ",
         },
         card_section: {
-          padding: "20px 5px",
+          padding: "0px 5px 8px 3px",
           borderRight: "1px",
           borderColor: 'blue.400',
           width: "300px",
@@ -128,6 +128,7 @@ function App(props) {
         <Grid
           layerStyle={'base'}
           maxW="700px"
+          height="900px"
         >
           <GridItem
             layerStyle={'base'}
@@ -146,7 +147,7 @@ function App(props) {
                 <HStack
                   layerStyle={'base'}
                   height="80px"
-                  padding="10x 10px"
+                  spacing={6}
                   align="left"
                   justify="left"
                   bg="gray.200"
@@ -154,8 +155,8 @@ function App(props) {
                 >
                   <Box layerStyle={'card_section'} width="200px">{job.companyName}</Box>
                   <Box layerStyle={'card_section'} >{job.jobTitle}</Box>
-                  <Box layerStyle={'card_section'} width="150px" >
-                    <Flex gap="4px">
+                  <Box layerStyle={'card_section'} width="150px" borderRight="0px">
+                    <Flex gap="4px" >
                       <DeleteJobDialog onDeleteJob={deleteJob} job={job}>Delete job dialog</DeleteJobDialog>
                       <EditJobDialog onEditJob={values => updateJob({ ...values, id: job.id })} job={job}>Edit job modal</EditJobDialog>
                     </Flex>

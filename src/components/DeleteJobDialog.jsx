@@ -26,7 +26,9 @@ function DeleteJobDialog(props) {
 
     return (
       <>
-        <Button leftIcon={<DeleteIcon/>}
+        <Button pr="0px"
+                pl="7px"
+                leftIcon={<DeleteIcon/>}
                 variant={"negative"}
                 onClick={onOpen}></Button>
 
