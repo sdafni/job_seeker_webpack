@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/job_seeker_webpack/static/js/main.96afea35.js",
+    "main.js": "/job_seeker_webpack/static/js/main.d9708385.js",
     "index.html": "/job_seeker_webpack/index.html",
-    "main.96afea35.js.map": "/job_seeker_webpack/static/js/main.96afea35.js.map"
+    "main.d9708385.js.map": "/job_seeker_webpack/static/js/main.d9708385.js.map"
   },
   "entrypoints": [
-    "static/js/main.96afea35.js"
+    "static/js/main.d9708385.js"
   ]
 }
